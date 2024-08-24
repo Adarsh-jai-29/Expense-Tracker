@@ -14,7 +14,7 @@ export default [
   {
     id: crypto.randomUUID(),
     title:'Vegetables',
-    category:'Dairy',
+    category:'Grocery',
     amount:100
   },
   {

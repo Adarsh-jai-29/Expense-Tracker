@@ -24,6 +24,7 @@ main {
 }
 
 .expense-table {
+    align-self: flex-start;
     width: 100%;
     border-collapse: collapse;
 }
@@ -92,6 +93,8 @@ main {
     font-size: 18px;
     font-family: inherit;
     margin-top: 8px;
+    background-color: rgb(100, 168, 77);
+    cursor: pointer;
 }
 
 .context-menu {

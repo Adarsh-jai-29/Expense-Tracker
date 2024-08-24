@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useFilter } from '../../hooks/useFilter'
 
 export default function ExpenseTable({expense}) {
+  const [filteredData,setCategory] = useFilter(expense,(data)=>data.category)
   return (
     <table className="expense-table">
           <thead>
             <tr>
               <th>Title</th>
               <th>
-                <select>
+              <select onChange={(e)=>setCategory(e.target.value)}>
                   <option value="">All</option>
                   <option value="grocery">Grocery</option>
                   <option value="clothes">Clothes</option>
@@ -46,7 +48,7 @@ export default function ExpenseTable({expense}) {
             </tr>
           </thead>
           <tbody>
-  { expense.map(({id,title,category,amount})=>{
+  { filteredData.map(({id,title,category,amount})=>{
       return <tr key={id}>
               <td>{title}</td>
               <td>{category}</td>
