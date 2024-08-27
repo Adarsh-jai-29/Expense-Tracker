@@ -96,15 +96,22 @@ main {
     background-color: rgb(100, 168, 77);
     cursor: pointer;
 }
-
-.context-menu {
+#category,#amount,#title{
+    font: inherit;
+}
+.error-message{
+    color: red;
+    margin: 0;
+    padding: 0;
+}
+.context-menu{
     background-color: white;
-    border: 1px solid;
     position: absolute;
+    border: 1px solid;
     display: none;
     border-radius: 4px;
     overflow: hidden;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 12px rgba(0,0,0,0.3);
 }
 
 .context-menu div {
@@ -116,9 +123,7 @@ main {
 .context-menu div:hover {
     background-color: #ddd;
 }
-#category,#amount,#title{
-    font: inherit;
-}
+
 @media (max-width: 900px) {
     body {
         margin-inline: 16px;
@@ -127,4 +132,5 @@ main {
     .expense-tracker {
         flex-direction: column;
     }
+    
 }

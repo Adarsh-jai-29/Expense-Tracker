@@ -12,8 +12,8 @@ const [expense,setExpense] = useState(ExpenseData)
     <main>
       <h1>Track Your Expense</h1>
       <div className="expense-tracker">
-   <ExpenseTable expense={expense} />
-   <ExpenseForm setExpense={setExpense} />
+   <ExpenseTable expense={expense} setExpense={setExpense}/>
+   <ExpenseForm setExpense={setExpense}/>
    
         <div className="context-menu">
             <div>Edit</div>

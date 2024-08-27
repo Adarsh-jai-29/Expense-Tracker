@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Input from "./Input";
+import Select from "./Select";
 
 export default function ExpenseForm({ setExpense }) {
   // ------------------------------------------------------------
@@ -17,28 +19,29 @@ export default function ExpenseForm({ setExpense }) {
     category: "",
     amount: "",
   });
-  const [errorMessage,setErrorMessage] = useState({})
+  const [errorMessage, setErrorMessage] = useState({});
 
   const validate = (formData) => {
-    const errorData = {} 
+    const errorData = {};
     if (!formData.title) {
-    errorData.title = 'Please add title';
-    };
+      errorData.title = "Please add title";
+    }
     if (!formData.category) {
-    errorData.category = 'Please select a category';
-    };
+      errorData.category = "Please select a category";
+    }
     if (!formData.amount) {
-    errorData.amount = 'Please add amount';
-    };
-    setErrorMessage(errorData)
-    return errorData
+      errorData.amount = "Please add amount";
+    }
+    setErrorMessage(errorData);
+    console.log(errorData);
+    return errorData;
   };
   const formHandel = (e) => {
     e.preventDefault();
-    console.log(expenses);
-   const validateResult = validate(expenses);
+    const validateResult = validate(expenses);
 
-    console.log(validateResult)
+    console.log(validateResult);
+    if (Object.keys(validateResult).length) return;
     setExpense((prevState) => [
       ...prevState,
       { ...expenses, id: crypto.randomUUID() },
@@ -51,47 +54,41 @@ export default function ExpenseForm({ setExpense }) {
   };
   const handelChange = (e) => {
     const name = e.target.name;
-    setExpenses((prev) => ({ ...prev, [name]: e.target.value }));
+    const value = name === "amount" ? Number(e.target.value) : e.target.value;
+    setExpenses((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
     <form className="expense-form" onSubmit={formHandel}>
-      <div className="input-container">
-        <label htmlFor="title">Title</label>
-        <input
-          id="title"
-          name="title"
-          value={expenses.title}
-          onChange={handelChange}
-        />
-      </div>
-      <div className="input-container">
-        <label htmlFor="category">Category</label>
-        <select
-          id="category"
-          name="category"
-          value={expenses.category}
-          onChange={handelChange}
-         
-        >
-          <option value="">All</option>
-          <option value="Grocery">Grocery</option>
-          <option value="Clothes">Clothes</option>
-          <option value="Bills">Bills</option>
-          <option value="Education">Education</option>
-          <option value="Medicine">Medicine</option>
-        </select>
-      </div>
-      <div className="input-container">
-        <label htmlFor="amount">Amount</label>
-        <input
-          id="amount"
-          type="number"
-          name="amount"
-          value={expenses.amount}
-          onChange={handelChange}
-        />
-      </div>
+      <Input
+        label="Title"
+        id="title"
+        name="title"
+        value={expenses.title}
+        onChange={handelChange}
+        error={errorMessage.title}
+      />
+
+      <Select
+        label="Category"
+        id="category"
+        name="category"
+        value={expenses.category}
+        onChange={handelChange}
+        error={errorMessage.category}
+        option={['Grocery','Clothes','Bills','Education','Medicine']}
+      />
+
+      <Input
+        label="Amount"
+        id="amount"
+        type="number"
+        name="amount"
+        value={expenses.amount}
+        onChange={handelChange}
+        error={errorMessage.amount}
+      />
+
       <button className="add-btn">Add</button>
     </form>
   );
