@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import Input from "./Input";
 import Select from "./Select";
 
-export default function ExpenseForm({ setExpense }) {
+export default function ExpenseForm({
+  setExpense,
+  setExpenses,
+  expenses,
+  editingRowId,
+  setEditingRowId,
+}) {
   // ------------------------------------------------------------
   // old method
   // const getFormInfo = (form) => {
@@ -14,11 +20,7 @@ export default function ExpenseForm({ setExpense }) {
   //   return data;
   // }
   // ------------------------------------------------------------
-  const [expenses, setExpenses] = useState({
-    title: "",
-    category: "",
-    amount: "",
-  });
+
   const [errorMessage, setErrorMessage] = useState({});
 
   const validate = (formData) => {
@@ -33,19 +35,36 @@ export default function ExpenseForm({ setExpense }) {
       errorData.amount = "Please add amount";
     }
     setErrorMessage(errorData);
-    console.log(errorData);
     return errorData;
   };
   const formHandel = (e) => {
     e.preventDefault();
     const validateResult = validate(expenses);
 
-    console.log(validateResult);
+    // console.log(validateResult);
+
     if (Object.keys(validateResult).length) return;
-    setExpense((prevState) => [
-      ...prevState,
-      { ...expenses, id: crypto.randomUUID() },
-    ]);
+    if (editingRowId) {
+      setExpense((prevData) => 
+        prevData.map((prevExpenses) => {
+          if (prevExpenses.id == editingRowId) {
+            // console.log(  prevExpense)
+            return { ...expenses, id: editingRowId };
+          }
+          return prevExpenses;
+        })
+    );
+    setEditingRowId("");
+    
+    setExpenses({
+      title: "",
+      category: "",
+      amount: "",
+    });
+    return
+    }
+    setExpense((data) => [...data, { ...expenses, id: crypto.randomUUID() }]);
+
     setExpenses({
       title: "",
       category: "",
@@ -76,7 +95,7 @@ export default function ExpenseForm({ setExpense }) {
         value={expenses.category}
         onChange={handelChange}
         error={errorMessage.category}
-        option={['Grocery','Clothes','Bills','Education','Medicine']}
+        option={["Grocery", "Clothes", "Bills", "Education", "Medicine"]}
       />
 
       <Input
@@ -89,7 +108,7 @@ export default function ExpenseForm({ setExpense }) {
         error={errorMessage.amount}
       />
 
-      <button className="add-btn">Add</button>
+      <button className="add-btn">{editingRowId ? "Save" : "Add"}</button>
     </form>
   );
 }
