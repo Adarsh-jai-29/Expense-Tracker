@@ -1,9 +1,5 @@
 # React + Vite
+# Expense-Tracker :-
+#### It is my first CRUD app. In this project, I work upon various functinality like data-filtering, data-sorting, LocalStorage, Form Validation and many more go & checkout right now...
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-# Expense-Tracker
+## Adarsh Jaiswal
